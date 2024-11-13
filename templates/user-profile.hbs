@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="icon" href="favicon.png" type="image/jpg">
+   <style>
+        /* Default light mode styles */
+        body {
+            background-color: #f8f9fa;
+            color: #212529;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1, h2, h3, h4, h5, h6, p {
+            transition: color 0.3s;
+        }
+
+        .sidebar {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .profile-section, .stats-section, .activity-health, .appointments-section {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .buttons-container button {
+            background-color: #fff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dark mode styles */
+        .dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .dark-mode h1, 
+        .dark-mode h2, 
+        .dark-mode h3, 
+        .dark-mode h4, 
+        .dark-mode h5, 
+        .dark-mode h6, 
+        .dark-mode p {
+            color: #fff;
+           
+        }
+
+        .dark-mode .sidebar {
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+        .dark-mode .sidebar-title{
+           background-color: #1e1e1e;
+            color: #ffffff; 
+        }
+         .dark-mode .menu-item{
+           background-color: #1e1e1e;
+            color: #ffffff; 
+        }
+        .dark-mode .profile-card {
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+         .dark-mode .stat-card {
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+         .dark-mode .activity-card {
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+       .dark-mode .main-content {
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+         .dark-mode .health-condition-card {
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+       
+
+
+
+
+        .dark-mode .profile-section, 
+        .dark-mode .stats-section, 
+        .dark-mode .activity-health, 
+        .dark-mode .appointments-section {
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .dark-mode .buttons-container button {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex bg-gradient-to-br" id="page-container">
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-title">Patient Dashboard</div>
+            <ul class="menu-list">
+               <li class="menu-item" id="bookAppointment">Book Appointments</li>
+                <li class="menu-item">Overview</li>
+                <li class="menu-item">Doctors</li>
+                <li class="menu-item">Medical History</li>
+                <li class="menu-item">Tests & Analyzes</li>
+                <li class="menu-item">Messages</li>
+                <li class="menu-item">Departments</li>
+            </ul>
+            <div class="buttons-container">
+                <button class="edit-button" onclick="window.location.href='http://localhost:3001/edit-profile'">Edit</button>
+                <button class="logout-button" onclick="window.location.href='http://localhost:3001/login'">Logout</button>
+            </div>
+            <div class="dark-mode-toggle">
+                <label for="dark-mode-switch">Dark Mode</label>
+                <input type="checkbox" id="dark-mode-switch">
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="profile-section">
+                <div class="profile-card">
+                    <img src="https://via.placeholder.com/100" alt="Profile" class="profile-img">
+                    <h2 class="profile-name">Loading...</h2>
+                    <p class="profile-id">Patient ID: Loading...</p>
+                    <div class="profile-details">
+                        <p>Age: <span id="age">Loading...</span></p>
+                        <p>Blood Group: <span id="blood-group">Loading...</span></p>
+                        <p>Height: <span id="height">Loading...</span></p>
+                        <p>Weight: <span id="weight">Loading...</span></p>
+                    </div>
+                </div>
+                <div class="stats-section">
+                    <div class="stat-card">
+                        <h3>General Health</h3>
+                        <p id="general-health">Loading...</p>
+                        <canvas id="generalHealthChart" width="400" height="400"></canvas>
+
+                    </div>
+                    <div class="stat-card">
+                        <h3>Water Balance</h3>
+                        <p id="water-balance">Loading...</p>
+                         <canvas id="waterBalanceChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="activity-health">
+                <div class="activity-card">
+                    <h3>Your Activity</h3>
+                    <p>Activity Graph Placeholder</p>
+                </div>
+                <div class="health-condition-card">
+                    <h3>Your Health Conditions</h3>
+                    <p>Health Condition Graph Placeholder</p>
+                </div>
+            </div>
+            <div class="appointments-section">
+                <h3>Doctor Appointments</h3>
+                <div class="appointments-list">
+                    <!-- Appointments can be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {{!-- profile name etc..  --}}
+    <script>
+       document.addEventListener("DOMContentLoaded", () => {
+       const email = localStorage.getItem('userEmail'); // Retrieve email from local storage
+
+        if (email) {
+        fetch(`http://localhost:3001/api/user/${email}`)
+            .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+            })
+            .then(data => {
+            document.querySelector(".profile-name").textContent = data.name || 'N/A';
+            document.querySelector(".profile-id").textContent = `Patient ID: ${data.patientId || 'N/A'}`;
+            document.getElementById("age").textContent = data.age || 'N/A';
+            document.getElementById("blood-group").textContent = data.bloodGroup || 'N/A';
+            document.getElementById("height").textContent = data.height + " cm" || 'N/A';
+            document.getElementById("weight").textContent = data.weight + " kg" || 'N/A';
+            document.getElementById("general-health").textContent = `${data.generalHealth || 'N/A'}`;
+            document.getElementById("water-balance").textContent = `${data.waterBalance || 'N/A'}%`;
+            })
+            .catch(error => console.error('Error fetching user data:', error));
+        } else {
+            console.error("No email found in local storage. Redirecting to login...");
+            window.location.href = '/login';
+        }
+        });
+    </script>
+
+    {{!-- doctor appointment bottom  --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        const email = localStorage.getItem('userEmail');
+
+        if (email) {
+        // Fetch appointments from the backend
+        fetch(`http://localhost:3001/api/user/${email}/appointments`)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+      .then(appointments => {
+        const appointmentsContainer = document.querySelector('.appointments-list');
+        appointmentsContainer.innerHTML = ''; // Clear any existing appointments
+
+        appointments.forEach(appointment => {
+          const appointmentCard = document.createElement('div');
+          appointmentCard.className = 'appointment-card';
+          appointmentCard.innerHTML = `
+            <h4>Doctor: ${appointment.doctor}</h4>
+            <p>Date: ${new Date(appointment.appointmentDate).toLocaleDateString()}</p>
+            <p>Time: ${appointment.appointmentTime}</p>
+            <p>Notes: ${appointment.notes || 'N/A'}</p>
+          `;
+          appointmentsContainer.appendChild(appointmentCard);
+        });
+      })
+      .catch(error => console.error('Error fetching appointments:', error));
+    } else {
+        console.error("No email found in local storage. Redirecting to login...");
+        window.location.href = '/login';
+    }
+    });
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+
+{{!-- top user profile --}}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const email = localStorage.getItem('userEmail'); // Retrieve email from local storage
+
+    if (email) {
+        fetch(`http://localhost:3001/api/user/${email}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Update profile information in the DOM
+                document.getElementById("water-balance").textContent = `${data.waterBalance || 'N/A'}%`;
+                document.getElementById("general-health").textContent = `${data.generalHealth || 'N/A'}%`;
+
+                // Extract general health value
+                const generalHealthText = document.getElementById("general-health").textContent.replace('%', '');
+                const generalHealthValue = parseInt(generalHealthText, 10) || 0; // Default to 0 if NaN
+                
+                // Extract water balance value
+                const waterBalanceText = document.getElementById("water-balance").textContent.replace('%', '');
+                const waterBalanceValue = parseInt(waterBalanceText, 10) || 0; // Default to 0 if NaN
+
+                // Calculate remaining health
+                const remainingHealth = 100 - generalHealthValue;
+                const remainingWater = 100 - waterBalanceValue;
+
+                // Create the General Health Pie Chart
+                const ctxHealth = document.getElementById('generalHealthChart').getContext('2d');
+                const generalHealthChart = new Chart(ctxHealth, {
+                    type: 'pie',
+                    data: {
+                        labels: ['General Health', 'Remaining Health'],
+                        datasets: [{
+                            label: 'General Health',
+                            data: [generalHealthValue, remainingHealth],
+                            backgroundColor: ['#4CAF50', '#FF6384'],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(tooltipItem) {
+                                        return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                // Create the Water Balance Pie Chart
+                const ctxWater = document.getElementById('waterBalanceChart').getContext('2d');
+                const waterBalanceChart = new Chart(ctxWater, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Water Balance', 'Remaining Water'],
+                        datasets: [{
+                            label: 'Water Balance',
+                            data: [waterBalanceValue, remainingWater],
+                            backgroundColor: ['#2196F3', '#FFB74D'],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(tooltipItem) {
+                                        return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching user data:', error));
+    } else {
+        console.error("No email found in local storage. Redirecting to login...");
+        window.location.href = '/login';
+    }
+});
+
+</script>
+
+{{!-- on click to book appointment button feature --}}
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+       
+        const bookAppointmentItem = document.getElementById('bookAppointment');
+        bookAppointmentItem.addEventListener('click', () => {
+            window.location.href = 'http://localhost:3001/book-appointment'; // Redirect to the booking page
+        }); 
+    });
+</script>
+
+
+  {{!-- dark mode button  --}}
+     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const darkModeSwitch = document.getElementById('dark-mode-switch');
+            const pageContainer = document.getElementById('page-container');
+            let clickCount = 0;  // Initialize a counter for clicks
+
+            // Toggle dark mode based on odd or even clicks
+            darkModeSwitch.addEventListener('click', () => {
+                clickCount++;  // Increment the counter each time the switch is clicked
+
+                if (clickCount % 2 === 1) {
+                    // Odd number of clicks: enable dark mode
+                    pageContainer.classList.add('dark-mode');
+                } else {
+                    // Even number of clicks: disable dark mode
+                    pageContainer.classList.remove('dark-mode');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
