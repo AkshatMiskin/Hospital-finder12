@@ -2,8 +2,7 @@ const express = require("express")
 const app = express()
 const path = require("path")
 const Appointment = require("../model/appointModel");
-const Doctor = require("../model/doctorModel");
-const Activity = require("../model/activityModel");  
+const Doctor = require("../model/doctorModel"); 
 const User = require("../model/userModel")
 const templatePath = path.join(__dirname, '../../templates')
 app.use(express.static(path.join(__dirname, '../../src')));
@@ -50,6 +49,23 @@ const Signup = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+const Medicalhistory = async (req, res) => {
+  try {
+    const email = req.body.email; // Assuming email is sent in the request body
+    const appointments = await Appointment.find({ email });
+
+    if (!appointments || appointments.length === 0) {
+      return res.status(404).render('medicalhistory', { message: "No medical history found for this user." });
+    }
+
+    // Render the medicalhistory page with appointment data
+    res.render('medicalhistory', { appointments });
+  } catch (error) {
+    console.error("Error fetching medical history:", error);
+    res.status(500).render('error', { message: "An error occurred while fetching medical history." });
+  }
+};
+
 
 const AddDoctor = async (req, res) => {
   try {
@@ -57,30 +73,20 @@ const AddDoctor = async (req, res) => {
       name: req.body.name,
       email: req.body.email,
       phone: req.body.phone,
+      availableHours: req.body.doctor,
       experience: req.body.experience,
       speciality: req.body.speciality
     };
 
-    // Save doctor to the database
+    // Save appointment to the database using insertMany
     await Doctor.insertMany([data]);
 
-    // Fetch updated doctor count
-    const doctorCount = await Doctor.countDocuments();
-
-    // Log recent activity
-    await Activity.create({
-      description: `Dr. ${req.body.name} specialist in ${req.body.speciality} was added`,
-      timestamp: new Date()
-    });
-
-    // Fetch recent activities
-    const recentActivities = await Activity.find().sort({ timestamp: -1 }).limit(10);
-
-    // Render the Admin-Dashboard with updated values
-    res.render("Admin-Dashboard", { totalDoctors: doctorCount, recentActivities });
-    
+    // Render the user profile page after successful booking
+    res.render("Admin-Dashboard");
   } catch (error) {
-    console.error("Error adding doctor: ", error);
+    console.error("Error booking appointment: ", error);
+    
+    // If there's an error, render an error page or send a proper error response
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -135,7 +141,7 @@ const EditProfile = async (req, res) => {
     await User.updateOne({ email: email }, { $set: updateData });
 
     // Redirect to the user's profile or home page after successful update
-    res.json({ email: email, redirectUrl: "/user-profile" }); 
+    res.json({ email: email, redirectUrl: "/user-profile" }); // Or redirect to another page, e.g., `/home` or `/dashboard`
   } catch (error) {
     console.error("Error updating profile:", error);
     res.status(500).render("Error");
@@ -193,5 +199,5 @@ module.exports = {
   ForgotPassword,
   ResetPassword, 
   Bookappointment,
-  AddDoctor
+  Medicalhistory
 }
