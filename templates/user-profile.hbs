@@ -112,12 +112,15 @@
             <div class="sidebar-title">Patient Dashboard</div>
             <ul class="menu-list">
                <li class="menu-item" id="bookAppointment">Book Appointments</li>
-                <li class="menu-item">Overview</li>
-                <li class="menu-item">Doctors</li>
-                <li class="menu-item">Medical History</li>
-                <li class="menu-item">Tests & Analyzes</li>
-                <li class="menu-item">Messages</li>
-                <li class="menu-item">Departments</li>
+
+
+              
+                <li class="menu-item">Doctor Communication</li>
+                <li class="menu-item" id="medical-history-btn">Medical History</li>
+                <li class="menu-item">Lab Reports</li>
+                <li class="menu-item">Billing & Payment History</li>
+               
+                <li class="menu-item">Notifications & Reminders</li>
             </ul>
             <div class="buttons-container">
                 <button class="edit-button" onclick="window.location.href='http://localhost:3001/edit-profile'">Edit</button>
@@ -174,52 +177,106 @@
             </div>
         </div>
     </div>
-    
-    {{!-- profile name etc..  --}}
-    <script>
+      <script>
        document.addEventListener("DOMContentLoaded", () => {
-       const email = localStorage.getItem('userEmail'); // Retrieve email from local storage
+    const email = localStorage.getItem('userEmail'); // Retrieve email from local storage
 
-        if (email) {
-        fetch(`http://localhost:3001/api/user/${email}`)
-            .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json();
-            })
-            .then(data => {
-            document.querySelector(".profile-name").textContent = data.name || 'N/A';
-            document.querySelector(".profile-id").textContent = `Patient ID: ${data.patientId || 'N/A'}`;
-            document.getElementById("age").textContent = data.age || 'N/A';
-            document.getElementById("blood-group").textContent = data.bloodGroup || 'N/A';
-            document.getElementById("height").textContent = data.height + " cm" || 'N/A';
-            document.getElementById("weight").textContent = data.weight + " kg" || 'N/A';
-            document.getElementById("general-health").textContent = `${data.generalHealth || 'N/A'}`;
-            document.getElementById("water-balance").textContent = `${data.waterBalance || 'N/A'}%`;
-            })
-            .catch(error => console.error('Error fetching user data:', error));
-        } else {
-            console.error("No email found in local storage. Redirecting to login...");
-            window.location.href = '/login';
-        }
+    if (email) {
+      fetch(`http://localhost:3001/api/user/${email}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+          }
+          return response.json();
+        })
+        .then(data => {
+          document.querySelector(".profile-name").textContent = data.name || 'N/A';
+          document.querySelector(".profile-id").textContent = `Patient ID: ${data.patientId || 'N/A'}`;
+          document.getElementById("age").textContent = data.age || 'N/A';
+          document.getElementById("blood-group").textContent = data.bloodGroup || 'N/A';
+          document.getElementById("height").textContent = data.height + " cm" || 'N/A';
+          document.getElementById("weight").textContent = data.weight + " kg" || 'N/A';
+          document.getElementById("general-health").textContent = `${data.generalHealth || 'N/A'}`;
+          document.getElementById("water-balance").textContent = `${data.waterBalance || 'N/A'}%`;
+        })
+        .catch(error => console.error('Error fetching user data:', error));
+    } else {
+      console.error("No email found in local storage. Redirecting to login...");
+      window.location.href = '/login';
+    }
+  
+
+    
         });
     </script>
+    {{!-- <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const email = localStorage.getItem('userEmail'); // Retrieve email from local storage
 
-    {{!-- doctor appointment bottom  --}}
+    if (email) {
+        // Fetch user profile information
+        fetch(`http://localhost:3001/api/user/${email}`)
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector(".profile-name").textContent = data.name || 'N/A';
+                document.querySelector(".profile-id").textContent = `Patient ID: ${data.patientId || 'N/A'}`;
+                document.getElementById("age").textContent = data.age || 'N/A';
+                document.getElementById("blood-group").textContent = data.bloodGroup || 'N/A';
+                document.getElementById("height").textContent = data.height + " cm" || 'N/A';
+                document.getElementById("weight").textContent = data.weight + " kg" || 'N/A';
+                document.getElementById("general-health").textContent = `${data.generalHealth || 'N/A'}`;
+                document.getElementById("water-balance").textContent = `${data.waterBalance || 'N/A'}%`;
+            })
+            .catch(error => console.error('Error fetching user data:', error));
+
+        // Fetch user appointments
+        fetch(`http://localhost:3001/api/user/${email}/appointments`)
+            .then(response => response.json())
+            .then(appointments => {
+                const appointmentsList = document.getElementById('appointments-list');
+                appointmentsList.innerHTML = ''; // Clear any existing content
+
+                // Check if appointments exist
+                if (appointments.length === 0) {
+                    appointmentsList.innerHTML = '<p>No appointments found for this user.</p>';
+                    return;
+                }
+
+                // Create appointment cards for each appointment
+                appointments.forEach(appointment => {
+                    const appointmentCard = document.createElement('div');
+                    appointmentCard.className = 'appointment-card';
+                    appointmentCard.innerHTML = `
+                        <h4>${appointment.doctor}</h4>
+                        <p><strong>Specialty:</strong> ${appointment.specialty}</p>
+                        <p><strong>Date:</strong> ${appointment.date}</p>
+                        <p><strong>Time:</strong> ${appointment.time}</p>
+                        <p><strong>Status:</strong> ${appointment.status}</p>
+                    `;
+                    appointmentsList.appendChild(appointmentCard);
+                });
+            })
+            .catch(error => console.error('Error fetching appointments:', error));
+    } else {
+        console.error("No email found in local storage. Redirecting to login...");
+        window.location.href = '/login';
+    }
+});
+
+    </script> --}}
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-        const email = localStorage.getItem('userEmail');
+  const email = localStorage.getItem('userEmail');
 
-        if (email) {
-        // Fetch appointments from the backend
-        fetch(`http://localhost:3001/api/user/${email}/appointments`)
-        .then(response => {
-            if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json();
-        })
+  if (email) {
+    // Fetch appointments from the backend
+    fetch(`http://localhost:3001/api/user/${email}/appointments`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+      })
       .then(appointments => {
         const appointmentsContainer = document.querySelector('.appointments-list');
         appointmentsContainer.innerHTML = ''; // Clear any existing appointments
@@ -237,17 +294,15 @@
         });
       })
       .catch(error => console.error('Error fetching appointments:', error));
-    } else {
-        console.error("No email found in local storage. Redirecting to login...");
-        window.location.href = '/login';
-    }
-    });
+  } else {
+    console.error("No email found in local storage. Redirecting to login...");
+    window.location.href = '/login';
+  }
+});
+
     </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js">
-</script>
-
-{{!-- top user profile --}}
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const email = localStorage.getItem('userEmail'); // Retrieve email from local storage
@@ -343,20 +398,20 @@
 });
 
 </script>
-
-{{!-- on click to book appointment button feature --}}
 <script>
     document.addEventListener("DOMContentLoaded", () => {
        
         const bookAppointmentItem = document.getElementById('bookAppointment');
         bookAppointmentItem.addEventListener('click', () => {
             window.location.href = 'http://localhost:3001/book-appointment'; // Redirect to the booking page
-        }); 
+        });
+
+       
     });
 </script>
 
 
-  {{!-- dark mode button  --}}
+  
      <script>
         document.addEventListener("DOMContentLoaded", () => {
             const darkModeSwitch = document.getElementById('dark-mode-switch');
@@ -377,5 +432,68 @@
             });
         });
     </script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const medicalHistoryButton = document.getElementById('medical-history-btn');
+    const email = localStorage.getItem('userEmail');
+
+    // Check if email exists in localStorage
+    if (!email) {
+      console.error("No email found in local storage. Redirecting to login...");
+      window.location.href = '/login';
+      return;
+    }
+
+    // Redirect to the medical history page with email as a query parameter
+    medicalHistoryButton.addEventListener('click', () => {
+      window.location.href = `http://localhost:3001/medicalhistory?email=${encodeURIComponent(email)}`;
+    });
+  });
+</script>
+
+    {{!-- <script>
+        document.addEventListener("DOMContentLoaded", () => {
+  const medicalHistoryButton = document.getElementById('medical-history-btn');
+  const appointmentsContainer = document.querySelector('.appointments-list');
+
+  // Get the user's email from localStorage
+  const email = localStorage.getItem('userEmail');
+
+  // If user clicks "Medical History", fetch and display appointments
+  medicalHistoryButton.addEventListener('click', () => {
+    if (email) {
+      // Fetch appointments from the backend
+      fetch(`http://localhost:3001/api/user/${email}/appointments`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+          }
+          return response.json();
+        })
+        .then(appointments => {
+          appointmentsContainer.innerHTML = ''; // Clear any existing appointments
+
+          // Loop through and display each appointment
+          appointments.forEach(appointment => {
+            const appointmentCard = document.createElement('div');
+            appointmentCard.className = 'appointment-card';
+            appointmentCard.innerHTML = `
+              <h4>Doctor: ${appointment.doctor}</h4>
+              <p>Date: ${new Date(appointment.appointmentDate).toLocaleDateString()}</p>
+              <p>Time: ${appointment.appointmentTime}</p>
+              <p>Notes: ${appointment.notes || 'N/A'}</p>
+            `;
+            appointmentsContainer.appendChild(appointmentCard);
+          });
+        })
+        .catch(error => console.error('Error fetching appointments:', error));
+    } else {
+      console.error("No email found in local storage. Redirecting to login...");
+      window.location.href = '/login';
+    }
+  });
+});
+
+    </script> --}}
 </body>
 </html>

@@ -47,7 +47,7 @@
     <h2>Add Doctor's details</h2>
 
     <!-- Edit Profile Form -->
-    <form  method="POST" id="add-doctor">
+    <form action="http://localhost:3001/edit-profile" method="POST">
     
       <div class="form-group">
         <label for="name">Doctor's Name:</label>
@@ -61,12 +61,13 @@
 
       <div class="form-group">
         <label for="contact">Contact Information (Phone Number):</label>
-        {{!-- <input type="number" id="contact" name="contact" required> --}}
-        <input type="text" name="phone" required>
-
+        <input type="number" id="contact" name="contact" required>
       </div>
       
-
+      <div class="form-group">
+        <label for="availability">Availability Hours (Weekdays):</label>
+        <input type="number" id="availability" name="availability" required>
+      </div>
 
       <div class="form-group">
         <label for="experience">Experience (in years):</label>
@@ -91,9 +92,6 @@
       <button type="submit">Save Changes</button>
     </form>
   </div>
-
-  
-
 </body>
 
 </html>

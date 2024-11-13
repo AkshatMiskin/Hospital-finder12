@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical History</title>
+ 
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+h1 {
+  color: #333;
+}
+
+.appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.appointment-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.appointment-card h4 {
+  margin: 0 0 5px;
+  color: #007BFF;
+}
+
+.appointment-card p {
+  margin: 5px 0;
+  color: #555;
+}
+
+  </style>
+</head>
+<body>
+  <h1>Medical History</h1>
+
+  {{#if appointments}}
+    <div class="appointments-list">
+      {{#each appointments}}
+        <div class="appointment-card">
+          <h4>Doctor: {{this.doctor}}</h4>
+          <p>Date: {{this.appointmentDate}}</p>
+          <p>Time: {{this.appointmentTime}}</p>
+          <p>Notes: {{this.notes}}</p>
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <p>{{message}}</p>
+  {{/if}}
+</body>
+</html>

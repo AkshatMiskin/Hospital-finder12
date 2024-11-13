@@ -22,6 +22,7 @@
         <li class="menu-item"><i class="fa fa-calendar-check"></i> Appointments</li>
         <li class="menu-item"><i class="fa fa-clinic-medical"></i> Departments</li>
         <li class="menu-item"><i class="fa fa-users"></i> Staff Management</li>
+        {{!-- <li class="menu-item"><i class="fa fa-cog"></i> Settings</li> --}}
       </ul>
     </div>
 
@@ -33,13 +34,9 @@
           <i class="fa fa-user-md"></i>
           <div>
             <h3>Total Doctors</h3>
-            <p>{{totalDoctors}}</p>
-            {{!-- <p id="doctor-count">Loading...</p> --}}
+            <p>40</p>
           </div>
         </div>
-
-      
-
 
         <!-- Patients Card -->
         <div class="card">
@@ -77,17 +74,14 @@
       <div class="recent-activity">
         <h3>Recent Activity</h3>
         <ul>
-          {{#each recentActivities}}
-            <li>
-              <p>{{description}}</p>
-              <small>{{timestamp}}</small>
-            </li>
-          {{/each}}
+          <li>Dr. Amanda updated patient record for John Doe <span>10 mins ago</span></li>
+          <li>New patient registered: Mary Jane <span>20 mins ago</span></li>
+          <li>Appointment scheduled for James at 12:30 PM <span>30 mins ago</span></li>
+          <li>Dr. Smith added a new report for Emma <span>1 hour ago</span></li>
         </ul>
       </div>
     </div>
   </div>
-
 </body>
 
 </html>

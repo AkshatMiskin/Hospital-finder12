@@ -7,10 +7,13 @@ const connectDB = require("./model/connectDB")
 const templatePath = path.join(__dirname, '../templates')
 const route = require("./routes/userRoute")
 const router = require("./routes/userDataRoute")
+//const appointmentDate = require("./appointment")
 const dotenv = require("dotenv")
 const approuter = require("./routes/appoinmentroute")
+const routee = require("./routes/medicalRoute")
 app.use(express.static(path.join(__dirname, '../src')));
 dotenv.config();
+
 
 connectDB();
 
@@ -27,6 +30,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use("/", route)
 app.use("/api", router)
 app.use("/api", approuter)
+app.use("/", routee)
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
