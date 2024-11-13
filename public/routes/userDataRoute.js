@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../model/userModel'); // Import the User model
-
+const Doctor = require('../model/doctorModel');
 // Route to get user data by email
 router.get('/user/:email', async (req, res) => {
   try {
@@ -43,5 +43,7 @@ router.put('/user/:email', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+
 
 module.exports = router;
