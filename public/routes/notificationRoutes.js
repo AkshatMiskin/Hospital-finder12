@@ -1,6 +1,6 @@
 // routes/notificationRoutes.js
 const express = require('express');
-const Appointment = require('../models/Appointment');
+const Appointment = require('../model/appointModel');
 const router = express.Router();
 
 // Endpoint to get appointments by user email
