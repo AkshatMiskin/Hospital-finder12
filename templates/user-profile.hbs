@@ -115,19 +115,14 @@
 
 
               
-                <li class="menu-item">Doctor Communication</li>
+            
                 <li class="menu-item" id="medical-history-btn">Medical History</li>
                 <li class="menu-item"  id="lab-reports-btn">Lab Reports</li>
                 <li class="menu-item">Billing & Payment History</li>
                
-                <li class="menu-item">Notifications & Reminders</li>
+                <li class="menu-item" id="notifications-btn">Notifications & Reminders</li>
 
-                <li class="menu-item">Overview</li>
-                <li class="menu-item">Doctors</li>
-                <li class="menu-item">Medical History</li>
-                <li class="menu-item">Tests & Analyzes</li>
-                <li class="menu-item">Messages</li>
-                <li class="menu-item">Departments</li>
+             
 
             </ul>
             <div class="buttons-container">
@@ -167,7 +162,7 @@
                     </div>
                 </div>
             </div>
-            <div class="activity-health">
+            {{!-- <div class="activity-health">
                 <div class="activity-card">
                     <h3>Your Activity</h3>
                     <p>Activity Graph Placeholder</p>
@@ -176,7 +171,7 @@
                     <h3>Your Health Conditions</h3>
                     <p>Health Condition Graph Placeholder</p>
                 </div>
-            </div>
+            </div> --}}
             <div class="appointments-section">
                 <h3>Doctor Appointments</h3>
                 <div class="appointments-list">
@@ -185,7 +180,16 @@
             </div>
         </div>
     </div>
-    
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const notificationsButton = document.getElementById('notifications-btn');
+
+    notificationsButton.addEventListener('click', () => {
+      // Redirect to the notifications page
+      window.location.href = `/notifications`;
+    });
+  });
+</script>
     {{!-- profile name etc..  --}}
     <script>
        document.addEventListener("DOMContentLoaded", () => {
