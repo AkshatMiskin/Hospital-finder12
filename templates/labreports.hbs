@@ -1,0 +1,80 @@
+<!-- File: views/labreports.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab Reports</title>
+  <style>
+    /* File: public/css/style.css */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    .report-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .report-list li {
+      margin: 15px 0;
+      padding: 20px;
+      border: 1px solid #ddd;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .report-list h4 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .report-list p {
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .report-list a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .report-list a:hover {
+      text-decoration: underline;
+    }
+
+    .no-reports {
+      text-align: center;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lab Reports</h1>
+
+  {{#if reports.length}}
+    <ul class="report-list">
+      {{#each reports}}
+        <li>
+          <h4>{{reportName}}</h4>
+          <p><strong>Uploaded By:</strong> {{uploadedBy}}</p>
+          <p><strong>Notes:</strong> {{notes}}</p>
+          <p><a href="{{fileUrl}}" target="_blank">Download Report</a></p>
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p class="no-reports">No reports found for this user.</p>
+  {{/if}}
+</body>
+</html>

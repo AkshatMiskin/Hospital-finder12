@@ -11,6 +11,7 @@ const router = require("./routes/userDataRoute")
 const dotenv = require("dotenv")
 const approuter = require("./routes/appoinmentroute")
 const routee = require("./routes/medicalRoute")
+const labReportRoutes = require("./routes/labReportRoutes");
 app.use(express.static(path.join(__dirname, '../src')));
 dotenv.config();
 
@@ -31,7 +32,8 @@ app.use("/", route)
 app.use("/api", router)
 app.use("/api", approuter)
 app.use("/", routee)
-
+app.use("/", labReportRoutes);
+app.use('/uploads', express.static('uploads'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

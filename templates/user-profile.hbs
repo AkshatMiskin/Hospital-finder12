@@ -117,7 +117,7 @@
               
                 <li class="menu-item">Doctor Communication</li>
                 <li class="menu-item" id="medical-history-btn">Medical History</li>
-                <li class="menu-item">Lab Reports</li>
+                <li class="menu-item"  id="lab-reports-btn">Lab Reports</li>
                 <li class="menu-item">Billing & Payment History</li>
                
                 <li class="menu-item">Notifications & Reminders</li>
@@ -448,6 +448,16 @@
     medicalHistoryButton.addEventListener('click', () => {
       window.location.href = `http://localhost:3001/medicalhistory?email=${encodeURIComponent(email)}`;
     });
+  });
+</script>
+<script>
+  document.getElementById("lab-reports-btn").addEventListener("click", () => {
+    const email = localStorage.getItem('userEmail');
+    if (email) {
+      window.location.href = `http://localhost:3001/labreports?email=${encodeURIComponent(email)}`;
+    } else {
+      window.location.href = '/login';
+    }
   });
 </script>
 
