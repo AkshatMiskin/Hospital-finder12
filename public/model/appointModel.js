@@ -1,52 +1,43 @@
 // models/Appointment.js
 const mongoose = require('mongoose');
 
-// Helper functions to format date and time
-const formatDate = (date) => date.toISOString().split('T')[0]; // Converts to "YYYY-MM-DD"
-const formatTime = (time) => time.toTimeString().split(' ')[0].slice(0, 5); // Converts to "HH:MM"
-
 const appointmentSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: [true, 'Name is required'],
+    trim: true,
   },
   email: {
     type: String,
-    required: true,
+    required: [true, 'Email is required'],
+    trim: true,
+    match: [/.+\@.+\..+/, 'Please enter a valid email address'],
   },
   phone: {
     type: String,
-    required: true,
+    required: [true, 'Phone number is required'],
+    trim: true,
   },
   doctor: {
     type: String,
-    required: true,
+    required: [true, 'Doctor name is required'],
+    trim: true,
   },
   appointmentDate: {
-    type: String,
-    required: true,
-    validate: {
-      validator: function (v) {
-        return /\d{4}-\d{2}-\d{2}/.test(v); // Validates YYYY-MM-DD format
-      },
-      message: (props) => `${props.value} is not a valid date format!`,
-    },
-    get: formatDate,
+    type: Date,
+    required: [true, 'Appointment date is required'],
   },
   appointmentTime: {
     type: String,
-    required: true,
-    validate: {
-      validator: function (v) {
-        return /\d{2}:\d{2}/.test(v); // Validates HH:MM format
-      },
-      message: (props) => `${props.value} is not a valid time format!`,
-    },
-    get: formatTime,
+    required: [true, 'Appointment time is required'],
+    match: [/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Please enter a valid time in HH:MM format'], // Validates HH:MM format
   },
   notes: {
     type: String,
+    trim: true,
   },
+}, {
+  timestamps: true, // Automatically add createdAt and updatedAt fields
 });
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);
