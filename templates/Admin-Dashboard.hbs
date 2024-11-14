@@ -17,12 +17,12 @@
     <div class="sidebar">
       <div class="sidebar-title">Admin Dashboard</div>
       <ul class="menu-list">
+        <li class="menu-item" onclick=window.location.href='http://localhost:3001/doctors'><i class="fa fa-users"></i> Doctors </li>
         <li class="menu-item" onclick=window.location.href='http://localhost:3001/add-doctor'><i class="fa fa-user-md"></i> Add Doctors</li>
         <li class="menu-item"><i class="fa fa-procedures"></i> Manage Patients</li>
-        <li class="menu-item"><i class="fa fa-calendar-check"></i> Appointments</li>
+        <li class="menu-item" onclick=window.location.href='http://localhost:3001/appointments'><i class="fa fa-calendar-check"></i> Appointments</li>
         <li class="menu-item"><i class="fa fa-clinic-medical"></i> Departments</li>
-        <li class="menu-item"><i class="fa fa-users"></i> Staff Management</li>
-        {{!-- <li class="menu-item"><i class="fa fa-cog"></i> Settings</li> --}}
+        
       </ul>
     </div>
 
@@ -34,16 +34,20 @@
           <i class="fa fa-user-md"></i>
           <div>
             <h3>Total Doctors</h3>
-            <p>40</p>
+            <p>{{totalDoctors}}</p>
+            {{!-- <p id="doctor-count">Loading...</p> --}}
           </div>
         </div>
+
+      
+
 
         <!-- Patients Card -->
         <div class="card">
           <i class="fa fa-procedures"></i>
           <div>
-            <h3>Total Patients</h3>
-            <p>200</p>
+            <h3>Total Users</h3>
+            <p>{{totalUsers}}</p>
           </div>
         </div>
 
@@ -58,30 +62,38 @@
       </div>
 
       <!-- Charts and Statistics -->
-      <div class="grid">
+      {{!-- <div class="grid">
         <div class="chart-card">
+          <h3>Doctors by Specialty</h3>
+          <canvas id="specialtiesChart"></canvas>
+        </div> --}}
+
+        {{!-- <div class="chart-card">
           <h3>Doctors by Department</h3>
           <p>Chart Placeholder</p>
-        </div>
+        </div> --}}
 
-        <div class="chart-card">
+        {{!-- <div class="chart-card">
           <h3>Appointments Trends</h3>
           <p>Chart Placeholder</p>
         </div>
-      </div>
+      </div> --}}
 
       <!-- Recent Activity -->
       <div class="recent-activity">
         <h3>Recent Activity</h3>
         <ul>
-          <li>Dr. Amanda updated patient record for John Doe <span>10 mins ago</span></li>
-          <li>New patient registered: Mary Jane <span>20 mins ago</span></li>
-          <li>Appointment scheduled for James at 12:30 PM <span>30 mins ago</span></li>
-          <li>Dr. Smith added a new report for Emma <span>1 hour ago</span></li>
+          {{#each recentActivities}}
+            <li>
+              <p>{{description}}</p>
+              <small>{{timestamp}}</small>
+            </li>
+          {{/each}}
         </ul>
       </div>
     </div>
   </div>
+
 </body>
 
 </html>

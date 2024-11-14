@@ -2,7 +2,8 @@ const express = require("express")
 const app = express()
 const path = require("path")
 const Appointment = require("../model/appointModel");
-const Doctor = require("../model/doctorModel"); 
+const Doctor = require("../model/doctorModel");
+const Activity = require("../model/activityModel");  
 const User = require("../model/userModel")
 const templatePath = path.join(__dirname, '../../templates')
 app.use(express.static(path.join(__dirname, '../../src')));
@@ -40,8 +41,13 @@ const Signup = async (req, res) => {
     // Save appointment to the database using insertMany
     await Appointment.insertMany([data]);
 
+    const recentAppointments = await Appointment.find()
+      .sort({ createdAt: -1 }) // Sort by creation date in descending order
+      .limit(5); // Limit to the 5 most recent appointments
+
     // Render the user profile page after successful booking
-    res.render("user-profile");
+    res.render("user-profile", {recentAppointments: recentAppointments});
+
   } catch (error) {
     console.error("Error booking appointment: ", error);
     
@@ -49,23 +55,6 @@ const Signup = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-const Medicalhistory = async (req, res) => {
-  try {
-    const email = req.body.email; // Assuming email is sent in the request body
-    const appointments = await Appointment.find({ email });
-
-    if (!appointments || appointments.length === 0) {
-      return res.status(404).render('medicalhistory', { message: "No medical history found for this user." });
-    }
-
-    // Render the medicalhistory page with appointment data
-    res.render('medicalhistory', { appointments });
-  } catch (error) {
-    console.error("Error fetching medical history:", error);
-    res.status(500).render('error', { message: "An error occurred while fetching medical history." });
-  }
-};
-
 
 const AddDoctor = async (req, res) => {
   try {
@@ -73,20 +62,30 @@ const AddDoctor = async (req, res) => {
       name: req.body.name,
       email: req.body.email,
       phone: req.body.phone,
-      availableHours: req.body.doctor,
       experience: req.body.experience,
       speciality: req.body.speciality
     };
 
-    // Save appointment to the database using insertMany
+    // Save doctor to the database
     await Doctor.insertMany([data]);
 
-    // Render the user profile page after successful booking
-    res.render("Admin-Dashboard");
-  } catch (error) {
-    console.error("Error booking appointment: ", error);
+    // Fetch updated doctor count
+    const doctorCount = await Doctor.countDocuments();
+
+    // Log recent activity
+    await Activity.create({
+      description: `Dr. ${req.body.name} specialist in ${req.body.speciality} was added`,
+      timestamp: new Date()
+    });
+
+    // Fetch recent activities
+    const recentActivities = await Activity.find().sort({ timestamp: -1 }).limit(5);
+
+    // Render the Admin-Dashboard with updated values
+    res.render("Admin-Dashboard", { totalDoctors: doctorCount, recentActivities });
     
-    // If there's an error, render an error page or send a proper error response
+  } catch (error) {
+    console.error("Error adding doctor: ", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -141,7 +140,7 @@ const EditProfile = async (req, res) => {
     await User.updateOne({ email: email }, { $set: updateData });
 
     // Redirect to the user's profile or home page after successful update
-    res.json({ email: email, redirectUrl: "/user-profile" }); // Or redirect to another page, e.g., `/home` or `/dashboard`
+    res.json({ email: email, redirectUrl: "/user-profile" }); 
   } catch (error) {
     console.error("Error updating profile:", error);
     res.status(500).render("Error");
@@ -199,5 +198,5 @@ module.exports = {
   ForgotPassword,
   ResetPassword, 
   Bookappointment,
-  Medicalhistory
+  AddDoctor
 }
