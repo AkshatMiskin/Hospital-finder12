@@ -102,9 +102,6 @@ route.get("/book-appointment", (req, res) => {
   res.render("book-appointment");  // Render your appointment booking page
 });
 
-route.get('/notifications', (req, res) => {
-  res.render('notifications');  // Render the notifications page view
-});
 
 route.post("/signup", Signup);
 route.post("/login", Login);
