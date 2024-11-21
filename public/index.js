@@ -36,10 +36,6 @@ app.use("/", routee)
 app.use("/", labReportRoutes);
 app.use('/uploads', express.static('uploads'));
 
-const notificationRoutes = require('./routes/notificationRoutes');
-app.use('/api/user', notificationRoutes);
-
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

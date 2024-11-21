@@ -5,58 +5,77 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab Reports</title>
+  <link rel="icon" href="logo.jpg" type="image/jpg">
   <style>
-    /* File: public/css/style.css */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: #f4f4f4;
-    }
+    /* General Dark Mode Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #1c1b2e;
+  color: #e0e0e0;
+  margin: 0;
+  padding: 20px;
+  transition: background-color 0.3s, color 0.3s;
+}
 
-    h1 {
-      color: #333;
-      text-align: center;
-    }
+h1 {
+  color: #c084fc;
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+}
 
-    .report-list {
-      list-style-type: none;
-      padding: 0;
-      margin: 20px 0;
-    }
+/* Report List Styles */
+.report-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
+  display: grid;
+  gap: 20px;
+}
 
-    .report-list li {
-      margin: 15px 0;
-      padding: 20px;
-      border: 1px solid #ddd;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+.report-list li {
+  background: #373159;
+  color: #e0e0e0;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    .report-list h4 {
-      color: #333;
-      margin-bottom: 10px;
-    }
+.report-list li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
 
-    .report-list p {
-      color: #666;
-      margin-bottom: 10px;
-    }
+.report-list h4 {
+  color: #c084fc;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
 
-    .report-list a {
-      color: #007bff;
-      text-decoration: none;
-    }
+.report-list p {
+  color: #e0e0e0;
+  font-size: 18px;
+  margin: 5px 0;
+}
 
-    .report-list a:hover {
-      text-decoration: underline;
-    }
+.report-list a {
+  color: #c084fc;
+  text-decoration: none;
+}
 
-    .no-reports {
-      text-align: center;
-      color: #888;
-    }
+.report-list a:hover {
+  text-decoration: underline;
+}
+
+/* No Reports Message */
+.no-reports {
+  text-align: center;
+  color: #888;
+  font-size: 18px;
+}
+
   </style>
 </head>
 <body>
@@ -67,9 +86,10 @@
       {{#each reports}}
         <li>
           <h4>{{reportName}}</h4>
-          <p><strong>Uploaded By:</strong> {{uploadedBy}}</p>
-          <p><strong>Notes:</strong> {{notes}}</p>
-          <p><a href="{{fileUrl}}" target="_blank">Download Report</a></p>
+          <p><strong>Patient Name:</strong> {{patientName}}</p>
+          <p><strong>Age:</strong> {{patientAge}}</p>
+          <p><strong>Gender:</strong> {{patientGender}}</p>
+          <p><strong>Date:</strong> {{uploadDate}}</p>
         </li>
       {{/each}}
     </ul>
