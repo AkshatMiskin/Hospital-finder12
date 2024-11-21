@@ -3,8 +3,7 @@ const app = express()
 const path = require("path")
 const Appointment = require("../model/appointModel");
 const Doctor = require("../model/doctorModel");
-const Activity = require("../model/activityModel"); 
-const LabTest = require("../model/labtestModel") 
+const Activity = require("../model/activityModel");  
 const User = require("../model/userModel")
 const templatePath = path.join(__dirname, '../../templates')
 app.use(express.static(path.join(__dirname, '../../src')));
@@ -57,24 +56,6 @@ const Signup = async (req, res) => {
   }
 };
 
-const AddLabTest = async (req, res) => {
-  try {
-    const data = {
-      patientName: req.body.name,
-      patientEmail: req.body.email,
-      patientAge: req.body.age,
-      patientGender: req.body.gender,
-      test: req.body.test,
-      uploadDate: new Date()
-    };
-
-    await LabTest.insertMany([data]);
-    res.render("Admin-Dashboard");
-  } catch (error) {
-    console.error("Error adding lab test:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-}
 const AddDoctor = async (req, res) => {
   try {
     const data = {
@@ -217,6 +198,5 @@ module.exports = {
   ForgotPassword,
   ResetPassword, 
   Bookappointment,
-  AddDoctor,
-  AddLabTest
+  AddDoctor
 }

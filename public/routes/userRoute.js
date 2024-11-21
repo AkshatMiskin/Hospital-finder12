@@ -10,8 +10,7 @@ const {
   ForgotPassword,
   ResetPassword,
   Bookappointment,
-  AddDoctor,
-  AddLabTest } = require("../controller/userController")
+  AddDoctor } = require("../controller/userController")
 const route = express.Router();
 const path = require("path");
 const User = require("../model/userModel");
@@ -30,7 +29,6 @@ route.get("/login", (req, res) => res.render("login"))
 route.get("/signup", (req, res) => res.render("signup"))
 route.get("/doctors", (req, res) => res.render("doctors"))
 route.get("/add-doctor", (req, res) => res.render("add-doctor"))
-route.get("/labtests", (req, res) => res.render("labtests"))
 route.get("/appointments", (req, res) => res.render("appointments"))
 route.get("/user-profile", (req, res) => res.render("user-profile"))
 route.get("/forgot-password", (req, res) => {
@@ -60,17 +58,6 @@ route.get('/Admin-Dashboard', async (req, res) => {
   } catch (error) {
     console.error("Error loading admin dashboard: ", error);
     res.status(500).send("Error loading admin dashboard");
-  }
-});
-route.get('/book-appointment', async (req, res) => {
-  try {
-    const doctors = await Doctor.find({}, 'name speciality'); // Fetch only name and specialty
-    console.log("Doctors fetched:", doctors); // Log the fetched doctors
-    res.render('book-appointment', { doctors }); // Pass doctors to the view
-    
-  } catch (error) {
-    console.error('Error fetching doctors:', error);
-    res.status(500).send("Error loading page");
   }
 });
 route.get('/api/specialties-count', async (req, res) => {
@@ -108,10 +95,16 @@ route.get("/reset-password/:token", (req, res) => {
 route.get("/edit-profile", async (req, res) => {
   res.render("edit-profile");
 });
-// route.get("/book-appointment", (req, res) => {
-//   res.render("book-appointment");  // Render your appointment booking page
-// });
+route.get("/add-doctor", async (req, res) => {
+  res.render("add-doctor");
+});
+route.get("/book-appointment", (req, res) => {
+  res.render("book-appointment");  // Render your appointment booking page
+});
 
+route.get('/notifications', (req, res) => {
+  res.render('notifications');  // Render the notifications page view
+});
 
 route.post("/signup", Signup);
 route.post("/login", Login);
@@ -121,5 +114,5 @@ route.post("/reset-password/:token", ResetPassword);
 route.post("/edit-profile", EditProfile);
 route.post("/add-doctor", AddDoctor);
 route.post("/book-appointment", Bookappointment);
-route.post("/labtests", AddLabTest)
+
 module.exports = route;

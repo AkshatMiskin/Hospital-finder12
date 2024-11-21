@@ -164,22 +164,11 @@
         <label for="doctor">Select Doctor</label>
         <select name="doctor" id="doctor" required>
           <option value="">Choose a doctor</option>
-          {{#each doctors}}
-            <option value="{{this._id}}">Dr. {{this.name}} ({{this.speciality}})</option>
-          {{/each}}
-        </select>
-      </div>
-
-
-      {{!-- <div class="form-group">
-        <label for="doctor">Select Doctor</label>
-        <select name="doctor" id="doctor" required>
-          <option value="">Choose a doctor</option>
           <option value="Dr. John Doe">Dr. John Doe (Cardiologist)</option>
           <option value="Dr. Sarah Smith">Dr. Sarah Smith (Dermatologist)</option>
           <option value="Dr. Emily Brown">Dr. Emily Brown (Orthopedic)</option>
         </select>
-      </div> --}}
+      </div>
 
       <!-- Appointment Date -->
       <div class="form-group">

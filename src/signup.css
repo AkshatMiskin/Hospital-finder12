@@ -6,18 +6,19 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom right, #4f46e5, #7c3aed, #3b82f6);
+    background: linear-gradient(to bottom right, #1a0b2e, #2d1b47, #3b1e58);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #e0d7f3; /* Light text for readability on dark background */
 }
 
 .container {
-    background-color: white;
+    background-color: #2a1e3d;
     padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
     width: 350px;
     text-align: center;
 }
@@ -25,7 +26,7 @@ body {
 h2 {
     margin-bottom: 20px;
     font-size: 24px;
-    color: #4f46e5;
+    color: #b088f9; /* Light purple for headers */
 }
 
 form input[type="email"],
@@ -35,12 +36,13 @@ form input[type="text"],
     width: 100%;
     padding: 12px;
     margin: 10px 0;
-    border: 1px solid #ccc;
+    border: 1px solid #4a3d62;
+    background-color: #3b2b4d;
+    color: #e0d7f3;
     border-radius: 5px;
     font-size: 16px;
     box-sizing: border-box;
-    padding-right: 40px;
-    /* Space for eye icon */
+    padding-right: 40px; /* Space for eye icon */
 }
 
 .password-container {
@@ -55,13 +57,13 @@ form input[type="text"],
     transform: translateY(-50%);
     cursor: pointer;
     font-size: 20px;
-    color: #4f46e5;
+    color: #b088f9; /* Light purple for eye icon */
 }
 
 form input[type="submit"] {
     width: 100%;
     padding: 12px;
-    background-color: #4f46e5;
+    background-color: #5c3a7d;
     color: white;
     border: none;
     border-radius: 5px;
@@ -71,7 +73,7 @@ form input[type="submit"] {
 }
 
 form input[type="submit"]:hover {
-    background-color: #3b82f6;
+    background-color: #7d56a1;
 }
 
 .login-option {
@@ -80,15 +82,16 @@ form input[type="submit"]:hover {
 
 .login-option p {
     font-size: 14px;
-    color: #4f46e5;
+    color: #e0d7f3; /* Light text color */
 }
 
 .login-option a {
-    color: #7c3aed;
+    color: #b088f9; /* Light purple color for links */
     text-decoration: none;
     font-weight: bold;
 }
 
 .login-option a:hover {
     text-decoration: underline;
+    color: #d4b3ff; /* Lighter purple on hover */
 }
