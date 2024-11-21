@@ -7,103 +7,128 @@
     <link rel="stylesheet" href="home.css">
     <link rel="icon" href="favicon.png" type="image/jpg">
    <style>
-        /* Default light mode styles */
-        body {
-            background-color: #f8f9fa;
-            color: #212529;
-            font-family: Arial, sans-serif;
-            transition: background-color 0.3s, color 0.3s;
-        }
+        /* Dark Mode Styles for Admin Dashboard */
+body {
+    background-color: #1c1b2e; /* Dark background with a purple/black tint */
+    color: #e0e0e0; /* Light text color */
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
 
-        h1, h2, h3, h4, h5, h6, p {
-            transition: color 0.3s;
-        }
+h1, h2, h3, h4, h5, h6, p {
+    color: #e0e0e0; /* Consistent text color for headings and paragraphs */
+    transition: color 0.3s;
+}
 
-        .sidebar {
-            background-color: #ffffff;
-            color: #000000;
-        }
+/* Sidebar */
+.sidebar {
+    background-color: #2a273b; /* Darker slate/navy for the sidebar */
+    color: #e0e0e0;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
 
-        .profile-section, .stats-section, .activity-health, .appointments-section {
-            background-color: #ffffff;
-            color: #000000;
-        }
+.sidebar h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #60a5fa; /* Lighter blue for the sidebar title */
+    margin-bottom: 20px;
+}
 
-        .buttons-container button {
-            background-color: #fff;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
+.sidebar .menu-item {
+    color: #e0e0e0;
+    padding: 10px 0;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+}
 
-        /* Dark mode styles */
-        .dark-mode {
-            background-color: #121212;
-            color: #ffffff;
-        }
+.sidebar .menu-item:hover {
+    color: #60a5fa; /* Light blue hover effect */
+    transform: translateX(5px);
+}
 
-        .dark-mode h1, 
-        .dark-mode h2, 
-        .dark-mode h3, 
-        .dark-mode h4, 
-        .dark-mode h5, 
-        .dark-mode h6, 
-        .dark-mode p {
-            color: #fff;
-           
-        }
+/* Profile, Stats, and Activity Section */
+.profile-section, .stats-section, .activity-health, .appointments-section {
+    background-color: #252440; /* Darker blue background for sections */
+    color: #e0e0e0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+    transition: background-color 0.3s, color 0.3s;
+}
 
-        .dark-mode .sidebar {
-            background-color: #1e1e1e;
-            color: #ffffff;
-        }
-        .dark-mode .sidebar-title{
-           background-color: #1e1e1e;
-            color: #ffffff; 
-        }
-         .dark-mode .menu-item{
-           background-color: #1e1e1e;
-            color: #ffffff; 
-        }
-        .dark-mode .profile-card {
-            background-color: #1e1e1e;
-            color: #ffffff;
-        }
-         .dark-mode .stat-card {
-            background-color: #1e1e1e;
-            color: #ffffff;
-        }
-         .dark-mode .activity-card {
-            background-color: #1e1e1e;
-            color: #ffffff;
-        }
-       .dark-mode .main-content {
-            background-color: #1e1e1e;
-            color: #ffffff;
-        }
-         .dark-mode .health-condition-card {
-            background-color: #1e1e1e;
-            color: #ffffff;
-        }
-       
+/* Buttons in Profile and Stats Section */
+.buttons-container button {
+    background-color: #3b82f6; /* Bright blue for button background */
+    color: #ffffff; /* White text color for contrast */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
 
+.buttons-container button:hover {
+    background-color: #2563eb; /* Slightly darker blue on hover */
+}
 
+/* Card Styles */
+.card {
+    background-color: #2e2a4d; /* Darker purple/black background for cards */
+    color: #e0e0e0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
 
-        .dark-mode .profile-section, 
-        .dark-mode .stats-section, 
-        .dark-mode .activity-health, 
-        .dark-mode .appointments-section {
-            background-color: #1e1e1e;
-            color: #ffffff;
-        }
+.card h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #60a5fa; /* Light blue for card titles */
+}
 
-        .dark-mode .buttons-container button {
-            background-color: #333;
-            color: #fff;
-        }
+/* Chart and Activity Cards */
+.chart-card, .recent-activity {
+    background-color: #2e2a4d; /* Dark background for consistency */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.chart-card:hover, .recent-activity:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.chart-card h3, .recent-activity h3 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #60a5fa; /* Light blue for headers */
+}
+
+.recent-activity ul {
+    list-style: none;
+    padding: 0;
+}
+
+.recent-activity li {
+    display: flex;
+    justify-content: space-between;
+    color: #9aa5ce; /* Lighter slate text */
+    margin-bottom: 10px;
+}
+
+.recent-activity span {
+    color: #6b728e; /* Muted time text */
+}
+
     </style>
 </head>
 <body>
@@ -112,12 +137,18 @@
             <div class="sidebar-title">Patient Dashboard</div>
             <ul class="menu-list">
                <li class="menu-item" id="bookAppointment">Book Appointments</li>
-                <li class="menu-item">Overview</li>
-                <li class="menu-item">Doctors</li>
-                <li class="menu-item">Medical History</li>
-                <li class="menu-item">Tests & Analyzes</li>
-                <li class="menu-item">Messages</li>
-                <li class="menu-item">Departments</li>
+
+
+              
+            
+                <li class="menu-item" id="medical-history-btn">Medical History</li>
+                <li class="menu-item"  id="lab-reports-btn">Lab Reports</li>
+                <li class="menu-item">Billing & Payment History</li>
+               
+                <li class="menu-item" id="notifications-btn">Notifications & Reminders</li>
+
+             
+
             </ul>
             <div class="buttons-container">
                 <button class="edit-button" onclick="window.location.href='http://localhost:3001/edit-profile'">Edit</button>
@@ -156,7 +187,7 @@
                     </div>
                 </div>
             </div>
-            <div class="activity-health">
+            {{!-- <div class="activity-health">
                 <div class="activity-card">
                     <h3>Your Activity</h3>
                     <p>Activity Graph Placeholder</p>
@@ -165,7 +196,7 @@
                     <h3>Your Health Conditions</h3>
                     <p>Health Condition Graph Placeholder</p>
                 </div>
-            </div>
+            </div> --}}
             <div class="appointments-section">
                 <h3>Doctor Appointments</h3>
                 <div class="appointments-list">
@@ -174,7 +205,16 @@
             </div>
         </div>
     </div>
-    
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const notificationsButton = document.getElementById('notifications-btn');
+
+    notificationsButton.addEventListener('click', () => {
+      // Redirect to the notifications page
+      window.location.href = `/notifications`;
+    });
+  });
+</script>
     {{!-- profile name etc..  --}}
     <script>
        document.addEventListener("DOMContentLoaded", () => {
@@ -377,5 +417,80 @@
             });
         });
     </script>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const medicalHistoryButton = document.getElementById('medical-history-btn');
+    const email = localStorage.getItem('userEmail');
+
+    // Check if email exists in localStorage
+    if (!email) {
+      console.error("No email found in local storage. Redirecting to login...");
+      window.location.href = '/login';
+      return;
+    }
+
+    // Redirect to the medical history page with email as a query parameter
+    medicalHistoryButton.addEventListener('click', () => {
+      window.location.href = `http://localhost:3001/medicalhistory?email=${encodeURIComponent(email)}`;
+    });
+  });
+</script>
+<script>
+  document.getElementById("lab-reports-btn").addEventListener("click", () => {
+    const email = localStorage.getItem('userEmail');
+    if (email) {
+      window.location.href = `http://localhost:3001/labreports?email=${encodeURIComponent(email)}`;
+    } else {
+      window.location.href = '/login';
+    }
+  });
+</script>
+
+    {{!-- <script>
+        document.addEventListener("DOMContentLoaded", () => {
+  const medicalHistoryButton = document.getElementById('medical-history-btn');
+  const appointmentsContainer = document.querySelector('.appointments-list');
+
+  // Get the user's email from localStorage
+  const email = localStorage.getItem('userEmail');
+
+  // If user clicks "Medical History", fetch and display appointments
+  medicalHistoryButton.addEventListener('click', () => {
+    if (email) {
+      // Fetch appointments from the backend
+      fetch(`http://localhost:3001/api/user/${email}/appointments`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+          }
+          return response.json();
+        })
+        .then(appointments => {
+          appointmentsContainer.innerHTML = ''; // Clear any existing appointments
+
+          // Loop through and display each appointment
+          appointments.forEach(appointment => {
+            const appointmentCard = document.createElement('div');
+            appointmentCard.className = 'appointment-card';
+            appointmentCard.innerHTML = `
+              <h4>Doctor: ${appointment.doctor}</h4>
+              <p>Date: ${new Date(appointment.appointmentDate).toLocaleDateString()}</p>
+              <p>Time: ${appointment.appointmentTime}</p>
+              <p>Notes: ${appointment.notes || 'N/A'}</p>
+            `;
+            appointmentsContainer.appendChild(appointmentCard);
+          });
+        })
+        .catch(error => console.error('Error fetching appointments:', error));
+    } else {
+      console.error("No email found in local storage. Redirecting to login...");
+      window.location.href = '/login';
+    }
+  });
+});
+
+    </script> --}}
+
 </body>
 </html>

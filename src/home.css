@@ -2,6 +2,8 @@
 body {
     font-family: Arial, sans-serif;
     transition: background-color 0.3s, color 0.3s;
+    background: #1c1b2e; /* Default dark background */
+    color: #e0e0e0; /* Light text color for better readability */
 }
 
 .min-h-screen {
@@ -12,27 +14,23 @@ body {
     display: flex;
 }
 
-/* Gradient Background for Entire Page */
+/* Gradient Background */
 .bg-gradient-to-br {
     background: linear-gradient(to bottom right, #4f46e5, #7c3aed, #3b82f6);
-    /* Enhanced gradient with smooth color transitions */
     transition: background 0.3s;
 }
 
 /* Dark Mode Styles */
-body.dark-mode .bg-gradient-to-br {
-    background: linear-gradient(to bottom right, #1f1f1f, #333333, #222222);
-}
-
 body.dark-mode {
     background-color: #121212;
     color: #e0e0e0;
 }
 
-body.dark-mode .sidebar {
-    background: #1e1e1e;
+body.dark-mode .bg-gradient-to-br {
+    background: linear-gradient(to bottom right, #1f1f1f, #333333, #222222);
 }
 
+body.dark-mode .sidebar, 
 body.dark-mode .profile-card,
 body.dark-mode .stat-card,
 body.dark-mode .activity-card,
@@ -42,24 +40,10 @@ body.dark-mode .appointments-section {
     color: #e0e0e0;
 }
 
-body.dark-mode .profile-name,
-body.dark-mode .doctor-name {
-    color: #e0e0e0;
-}
-
-body.dark-mode .menu-item,
-body.dark-mode .buttons-container button {
-    color: #e0e0e0;
-}
-
-body.dark-mode .buttons-container button {
-    background: #333333;
-}
-
 /* Sidebar */
 .sidebar {
     width: 25%;
-    background: #f3f4f6;
+    background: #2a273b;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -70,7 +54,7 @@ body.dark-mode .buttons-container button {
 .sidebar-title {
     font-size: 1.5rem;
     font-weight: bold;
-    color: black;
+    color: #60a5fa; /* Light blue for sidebar title */
     margin-bottom: 1rem;
 }
 
@@ -81,7 +65,7 @@ body.dark-mode .buttons-container button {
 
 .menu-item {
     padding: 0.5rem 0;
-    color: black;
+    color: #e0e0e0;
     cursor: pointer;
     transition: color 0.3s ease, background-color 0.3s ease;
 }
@@ -92,39 +76,33 @@ body.dark-mode .buttons-container button {
     border-radius: 0.25rem;
 }
 
-/* Buttons Container */
+/* Buttons */
 .buttons-container {
     margin-top: auto;
     display: flex;
     gap: 0.5rem;
 }
 
-/* Edit Button Styling */
-.edit-button {
-    background: linear-gradient(to right, #6d28d9, #4b21b6);
-    color: white;
+.edit-button, .logout-button {
+    color: #ffffff;
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 0.25rem;
     cursor: pointer;
     font-size: 0.875rem;
     transition: background 0.3s;
+}
+
+.edit-button {
+    background: linear-gradient(to right, #6d28d9, #4b21b6);
 }
 
 .edit-button:hover {
     background: linear-gradient(to left, #6d28d9, #4b21b6);
 }
 
-/* Logout Button Styling */
 .logout-button {
     background: linear-gradient(to right, #1e40af, #3b82f6);
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    font-size: 0.875rem;
-    transition: background 0.3s;
 }
 
 .logout-button:hover {
@@ -135,7 +113,7 @@ body.dark-mode .buttons-container button {
 .main-content {
     width: 75%;
     padding: 2rem;
-    background: #ffffff;
+    background: #252440;
     transition: background 0.3s, color 0.3s;
 }
 
@@ -147,7 +125,7 @@ body.dark-mode .buttons-container button {
 }
 
 .profile-card {
-    background: #ffffff;
+    background: #2e2a4d;
     padding: 1rem;
     border-radius: 1rem;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -171,7 +149,7 @@ body.dark-mode .buttons-container button {
     font-size: 1.25rem;
     font-weight: bold;
     margin: 1rem 0;
-    color: #1e40af;
+    color: #60a5fa;
 }
 
 .profile-id {
@@ -190,7 +168,7 @@ body.dark-mode .buttons-container button {
 }
 
 .stat-card {
-    background: #ffffff;
+    background: #2e2a4d;
     padding: 1rem;
     border-radius: 1rem;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -211,9 +189,8 @@ body.dark-mode .buttons-container button {
     margin-bottom: 2rem;
 }
 
-.activity-card,
-.health-condition-card {
-    background: #ffffff;
+.activity-card, .health-condition-card {
+    background: #2e2a4d;
     padding: 1rem;
     border-radius: 1rem;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -221,15 +198,14 @@ body.dark-mode .buttons-container button {
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.activity-card:hover,
-.health-condition-card:hover {
+.activity-card:hover, .health-condition-card:hover {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
     transform: translateY(-5px);
 }
 
 /* Appointments Section */
 .appointments-section {
-    background: #ffffff;
+    background: #2e2a4d;
     padding: 1rem;
     border-radius: 1rem;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -248,5 +224,5 @@ body.dark-mode .buttons-container button {
 
 .doctor-name {
     font-weight: bold;
-    color: #1e40af;
+    color: #60a5fa;
 }
